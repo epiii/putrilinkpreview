@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>Link Preview (Thumbnail)</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -14,6 +14,8 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -22,6 +24,7 @@
 <br>
   <div class="container col-md-6">
 
+
     <!-- Card -->
     <div class="card">
 
@@ -29,13 +32,14 @@
         <div class="card-body">
 
             <!-- Material form register -->
-            <form onsubmit="fetchPreview(); return false;">
-                <p class="h4 text-center py-4">Test Link Preview</p>
+            <form onsubmit="fetchPreviewAPI(); return false;">
+                <p class="h4 text-center py-4"> Preview Link (test)</p>
 
                 <!-- Material input email -->
                 <div class="md-form">
                     <i class="fa fa-link prefix "></i>
-                    <input onkeyup="fetchPreview();" type="url" id="urlText" class="form-control-lg">
+                    <input onchange="fetchPreviewAPI();" type="url" id="urlText" class="form-control-lg">
+                    <!-- <input onkeyup="fetchPreviewAPI();" type="url" id="urlText" class="form-control-lg"> -->
                     <label for="materialFormCardEmailEx" class="font-weight-light">Url / Link</label>
                 </div>
 
@@ -99,6 +103,10 @@
   <br>
   <br>
 
+<!-- urlive - jquery | content demo -->
+  <!-- <a id="demo" href="https://www.youtube.com/watch?v=An4azka3rc8">https://www.youtube.com/watch?v=An4azka3rc8</a> -->
+  <!-- <div class="urlive-container"></div> -->
+
     <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
@@ -108,13 +116,26 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+
+
+    <!-- url live prev -->
+      <link href="js/urlive/jquery.urlive.css" rel="stylesheet" type="text/css">
+      <script src="js/urlive/jquery.urlive.js"></script>
+    <!-- end of : url live prev -->
+
     <script>
-      function fetchPreview(){
+      // with 3rd party (API)
+      function fetchPreviewAPI(){
         var target = $('#urlText').val() ;
+        // var apiKey = '5b3e8c5a45f20d473d250193acc1cb049f2840310c2c4';  // maximum limited
+        var apiKey = '5b3e8cd41c77ce26af35311d1e3eb0873d862e83aa1d4';
+        // var apiKey = '5b3e8d136ddda64691865acd4ad082ade5b5f39320164';
+        // var apiKey = '5b3e8dc6e9652c611c3bb714aa29ef5c4dbee6eb0e8c8';
+
         $.ajax({
           url: "https://api.linkpreview.net",
           dataType: 'jsonp',
-          data: {q: target, key: '5b3e5ec7653e60ba6900c12ea9aa7c874f4546a29fd90'},
+          data: {q: target, key: apiKey},
           success: function (response) {
             console.log(response);
             $('#bodyPreview').removeAttr('style');
@@ -126,6 +147,17 @@
           }
         });
       }
+
+    // native plugin (urlive jquery)
+      $(document).ready(function(){
+        // function fetchPreview(){
+          $('#demo').urlive().hover(function(){
+            $(this).urlive('open');
+          },function(){
+            $(this).urlive('close');
+          });
+        // }
+      });
     </script>
 </body>
 
